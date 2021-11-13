@@ -1,0 +1,41 @@
+import java.time.LocalTime;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+public class WPMProgram {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        String[] words = {"hello", "world", "tech elevator", "java", "bootcamp", "capstone", "module", "pathway"
+                            ,"database", "client", "server"};
+        // Begins the countdown
+        System.out.println("3");
+        // Pause between countdown
+        TimeUnit.SECONDS.sleep(1);
+        System.out.println("2");
+        TimeUnit.SECONDS.sleep(1);
+        System.out.println("1");
+        TimeUnit.SECONDS.sleep(1);
+        // Random Generator
+        Random rand  = new Random();
+        for (int i = 0; i < 10; i++) { //        generates a random number between 0-9 equal to size of array
+            System.out.print(words[rand.nextInt(9)] + " ");
+        }
+        System.out.println();
+        // gets the nanoseconds of day
+        double start = LocalTime.now().toNanoOfDay();
+        // scanner to capture user input
+        Scanner scan = new Scanner(System.in);
+        String typedWords = scan.nextLine();
+        // timer ended by getting nanoseconds
+        double end = LocalTime.now().toNanoOfDay();
+        double elapsedTime = end - start; // difference subtracted to get time between typing
+        double seconds = elapsedTime / 1000000000.0; // converts to seconds
+        int numChars = typedWords.length(); // number of chars the user entered
+        // WPM = (x characters / 5) / 1min = y WPM
+        int wpm =(int) ((((double) numChars / 5) / seconds * 60)); // must be cast so no data is lost dividing 
+
+        System.out.println("Your WPM is " + wpm + "!");
+    }
+}
